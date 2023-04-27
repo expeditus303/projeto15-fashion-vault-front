@@ -56,6 +56,7 @@ const BottomImages = styled.div`
 `;
 
 const MainImage = styled.div`
+  z-index: 3;
   position: relative;
   img {
     height: 43vh;
