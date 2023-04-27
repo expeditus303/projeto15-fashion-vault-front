@@ -1,24 +1,32 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import styled from "styled-components";
 import HomePage from "./pages/HomePage";
+import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
+import BagPage from "./pages/BagPage";
 import ShopPage from "./pages/ShopPage";
 import React, { createContext, useState } from "react";
+export const HeaderDataContext = createContext();
 
 export default function App() {
-  const [headerData, setHeaderData] = useState();
-
-  const HeaderData = React.createContext();
+  const [headerData, setHeaderData] = useState({
+    returnButton: false,
+    headerTitle: ""
+  });
 
   return (
     <PagesContainer>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/home" element={<HomePage />} />
-          <Route path="/shop" element={<ShopPage />} />
-        </Routes>
-        <Footer />
-      </BrowserRouter>
+      <HeaderDataContext.Provider value={{ headerData, setHeaderData }}>
+        <BrowserRouter>
+          <Header headerData={headerData} />
+          <Routes>
+            <Route path="/home" element={<HomePage />} />
+            <Route path="/shop" element={<ShopPage />} />
+            <Route path="/bag" element={<BagPage />} />
+          </Routes>
+          <Footer />
+        </BrowserRouter>
+      </HeaderDataContext.Provider>
     </PagesContainer>
   );
 }
@@ -26,4 +34,5 @@ export default function App() {
 const PagesContainer = styled.main`
   width: 100%;
   height: 100%;
+  background-color: black;
 `;
