@@ -2,12 +2,12 @@ import styled from "styled-components";
 
 export default function NavIcon(props) {
   const { iconData, clickedIcon, selecionado } = props;
-  const { name, link, solid, outLine } = iconData;
+  const { name, route, solid, outLine } = iconData;
 
   return (
     <NavIconContainer
       onClick={() => {
-        clickedIcon(name);
+        clickedIcon(name, route);
       }}
     >
       <img src={selecionado === name ? solid : outLine} alt="" />
