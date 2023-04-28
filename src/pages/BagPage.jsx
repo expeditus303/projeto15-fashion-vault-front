@@ -3,14 +3,14 @@ import { HeaderDataContext } from "../App";
 import styled from "styled-components";
 
 export default function BagPage() {
-  const { setHeaderData } = useContext(HeaderDataContext);
+//   const { setHeaderData } = useContext(HeaderDataContext);
 
-  useEffect(() => {
-    setHeaderData({
-      returnButton: false,
-      headerTitle: "My Bag",
-    });
-  }, []);
+//   useEffect(() => {
+//     setHeaderData({
+//       returnButton: false,
+//       headerTitle: "My Bag",
+//     });
+//   }, []);
 
   return (
     <BagContainer></BagContainer>

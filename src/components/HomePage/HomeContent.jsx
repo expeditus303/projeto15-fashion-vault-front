@@ -65,6 +65,7 @@ const MainImage = styled.div`
     width: 100%;
   }
   h2 {
+    line-height: 1;
     position: absolute;
     right: 10px;
     bottom: 35px;
@@ -73,6 +74,6 @@ const MainImage = styled.div`
     font-size: 34px;
     font-weight: 600;
     letter-spacing: 0em;
-    text-align: left;
+    text-align: right;
   }
 `;
