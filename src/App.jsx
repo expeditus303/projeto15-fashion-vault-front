@@ -5,23 +5,21 @@ import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import BagPage from "./pages/BagPage";
 import ShopPage from "./pages/ShopPage";
-import React, { createContext, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 export const HeaderDataContext = createContext();
 
 export default function App() {
-  const [headerData, setHeaderData] = useState({
-    returnButton: false,
-    headerTitle: ""
-  });
+  const [headerTitle, setHeaderTitle] = useState("");
+  const [headerButton, setHeaderButton] = useState(false);
 
   return (
     <PagesContainer>
-      <HeaderDataContext.Provider value={{ headerData, setHeaderData }}>
+      <HeaderDataContext.Provider value={{ setHeaderButton ,headerButton ,headerTitle, setHeaderTitle }}>
         <BrowserRouter>
-          <Header headerData={headerData} />
+          <Header headerButtonButton={headerButton} headerTitle={headerTitle} />
           <Routes>
             <Route path="/home" element={<HomePage />} />
-            <Route path="/shop" element={<ShopPage />} />
+            <Route path="/shop/*" element={<ShopPage />} />
             <Route path="/bag" element={<BagPage />} />
           </Routes>
           <Footer />

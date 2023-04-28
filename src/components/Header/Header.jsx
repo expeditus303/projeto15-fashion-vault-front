@@ -1,16 +1,24 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import { HeaderDataContext } from "../../App";
+import { useNavigate } from "react-router-dom";
 
 export default function Header() {
-  const { headerData } = useContext(HeaderDataContext);
+  const { headerTitle, headerButton } = useContext(HeaderDataContext);
+  const navigate = useNavigate();
+
+  function clickButton() {
+    navigate(-1);
+  }
 
   return (
     <HeaderContainer>
-      {headerData.returnButton && (
-        <img src="assets/icons/Navigation-Bar/iconbackIcon.svg" alt="" />
-      )}
-      <p>{headerData.headerTitle}</p>
+      <img
+        onClick={headerButton ? clickButton : null}
+        src="assets/icons/Navigation-Bar/iconbackIcon.svg"
+        alt=""
+      />
+      <p>{headerTitle}</p>
     </HeaderContainer>
   );
 }
@@ -30,6 +38,7 @@ const HeaderContainer = styled.div`
     width: 24px;
   }
   p {
+    width: 70%;
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
