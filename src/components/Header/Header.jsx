@@ -2,9 +2,10 @@ import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import { HeaderDataContext } from "../../App";
 import { useNavigate } from "react-router-dom";
+import returnButtonImg from "../../assets/Navigation-Bar/iconbackIcon.svg"
 
-export default function Header() {
-  const { headerTitle, headerButton } = useContext(HeaderDataContext);
+export default function Header(props) {
+  const { headerTitle, headerButton } = props;
   const navigate = useNavigate();
 
   function clickButton() {
@@ -15,7 +16,7 @@ export default function Header() {
     <HeaderContainer>
       <img
         onClick={headerButton ? clickButton : null}
-        src="assets/icons/Navigation-Bar/iconbackIcon.svg"
+        src={returnButtonImg}
         alt=""
       />
       <p>{headerTitle}</p>
@@ -34,6 +35,7 @@ const HeaderContainer = styled.div`
   align-items: center;
   top: 0;
   left: 0;
+  box-shadow: 0px 4px 12px 0px #0000001F;
   img {
     width: 24px;
   }
