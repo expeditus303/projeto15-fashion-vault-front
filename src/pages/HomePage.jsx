@@ -2,11 +2,18 @@ import styled from "styled-components";
 import HomeContent from "../components/HomePage/HomeContent";
 import { useContext, useEffect } from "react";
 import { HeaderDataContext } from "../App";
+import { useNavigate } from "react-router-dom";
 
 export default function HomePage() {
   const { setSelecionado } = useContext(HeaderDataContext);
+  const navigate = useNavigate();
+  
   useEffect(() => {
     setSelecionado("Home");
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/");
+    }
   }, []);
 
   return (

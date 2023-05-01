@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
 import { HeaderDataContext } from "../../App";
@@ -10,16 +10,56 @@ export default function ProductContent(props) {
   const { id } = useParams();
   const { setHeaderButton, setHeaderTitle } = useContext(HeaderDataContext);
   const [product, setProduct] = useState();
+  const [onCart, setOnCart] = useState(false);
+  const [selected, setSelected] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     setHeaderButton(true);
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/");
+    }
 
-    axios.get(`http://localhost:5000/product/details/${id}`).then((res) => {
-      const productInfo = res.data;
-      setHeaderTitle(productInfo.title);
-      setProduct(productInfo);
-    });
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
+
+    axios
+      .get(`http://localhost:5000/product/details/${id}`, config)
+      .then((res) => {
+        const productInfo = res.data;
+        setHeaderTitle(productInfo.title);
+        setProduct(productInfo);
+      })
+      .catch((err) => {
+        console.log(err.response.data);
+        navigate(-1);
+      });
   }, []);
+
+  function addToCart() {
+    const { token } = localStorage.getItem("token");
+    const config = {
+      headers: {
+        Authorizarion: `Bearer ${token}`,
+      },
+    };
+    axios
+      .post(`http://localhost:5000/cart/${selected}`, {}, config)
+      .then(() => {
+        setOnCart(true);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  function selectSize(e) {
+    const selectedSize = e.target.value;
+    const selectedSku = product.skus.find((sku) => sku.size === selectedSize);
+    setSelected(selectedSku._id);
+  }
 
   if (!product) {
     return (
@@ -39,7 +79,7 @@ export default function ProductContent(props) {
       </ProductImages>
       <SizeSelection>
         <div>
-          <select>
+          <select onChange={selectSize}>
             <option value="" defaultValue="">
               Sizes
             </option>
@@ -66,7 +106,9 @@ export default function ProductContent(props) {
       </ProductDescription>
       <AddFooter>
         <div>
-          <button>ADD TO CART</button>
+          <button onClick={addToCart}>
+            {onCart ? "ON THE CART" : "ADD TO CART"}
+          </button>
         </div>
       </AddFooter>
     </ProductContainer>
