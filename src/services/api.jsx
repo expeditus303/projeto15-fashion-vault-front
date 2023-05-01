@@ -22,9 +22,18 @@ function updateCart(token, productId, update) {
     return promise
 }
 
+function getCheckout(token){
+    const config = createConfig(token)
+
+    const promise = axios.get(`${BASE_URL}/checkout`, config)
+
+    return promise
+}
+
 const api = {
     getBag,
-    updateCart
+    updateCart,
+    getCheckout
 }
 
 export default api
