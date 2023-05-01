@@ -70,7 +70,7 @@ export default function Footer(props) {
 }
 
 const FooterContainer = styled.div`
-  z-index: 1;
+  z-index: 2;
   padding-left: 20px;
   padding-right: 20px;
   display: flex;
