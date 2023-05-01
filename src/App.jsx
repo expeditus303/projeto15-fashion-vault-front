@@ -10,19 +10,20 @@ export const HeaderDataContext = createContext();
 
 export default function App() {
   const [headerTitle, setHeaderTitle] = useState("");
-  const [headerButton, setHeaderButton] = useState(false);
+  const [headerButton, setHeaderButton] = useState(true);
+  const [selecionado, setSelecionado] = useState();
 
   return (
     <PagesContainer>
-      <HeaderDataContext.Provider value={{ setHeaderButton ,headerButton ,headerTitle, setHeaderTitle }}>
+      <HeaderDataContext.Provider value={{ setHeaderButton , setHeaderTitle, setSelecionado }}>
         <BrowserRouter>
-          <Header headerButtonButton={headerButton} headerTitle={headerTitle} />
+          <Header headerButton={headerButton} headerTitle={headerTitle} />
           <Routes>
             <Route path="/home" element={<HomePage />} />
             <Route path="/shop/*" element={<ShopPage />} />
             <Route path="/bag" element={<BagPage />} />
           </Routes>
-          <Footer />
+          <Footer selecionado={selecionado} />
         </BrowserRouter>
       </HeaderDataContext.Provider>
     </PagesContainer>

@@ -2,10 +2,12 @@ import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import Categories from "./CategoriesList";
 import { HeaderDataContext } from "../../App";
+import { useNavigate } from "react-router-dom";
 
 export default function CategoriesContent() {
   const [selected, setSelected] = useState("women");
   const { setHeaderTitle, setHeaderButton } = useContext(HeaderDataContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
     setHeaderTitle("Categories");
@@ -17,15 +19,49 @@ export default function CategoriesContent() {
   }
 
   const menCategories = [
-    { gender: "men", category: "Clothes", thumb: "https://images.unsplash.com/photo-1505022610485-0249ba5b3675?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80" },
-    { gender: "men", category: "Accessories", thumb: "https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80" },
-    { gender: "men", category: "Underwear", thumb: "https://images.unsplash.com/photo-1601393710008-984348f7447b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=367&q=80" },
+    {
+      gender: "men",
+      category: "Clothes",
+      thumb:
+        "https://images.unsplash.com/photo-1505022610485-0249ba5b3675?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
+    },
+    {
+      gender: "men",
+      category: "Accessories",
+      thumb:
+        "https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
+    },
+    {
+      gender: "men",
+      category: "Underwear",
+      thumb:
+        "https://images.unsplash.com/photo-1601393710008-984348f7447b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=367&q=80",
+    },
   ];
   const womenCategories = [
-    { gender: "women", category: "Clothes", thumb: "https://images.unsplash.com/photo-1520024146169-3240400354ae?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=326&q=80" },
-    { gender: "women", category: "Accessories", thumb: "https://images.unsplash.com/photo-1576053139778-7e32f2ae3cfd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80" },
-    { gender: "women", category: "Intimates", thumb: "https://images.unsplash.com/photo-1582366457363-930f4436009a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=469&q=80" },
+    {
+      gender: "women",
+      category: "Clothes",
+      thumb:
+        "https://images.unsplash.com/photo-1520024146169-3240400354ae?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=326&q=80",
+    },
+    {
+      gender: "women",
+      category: "Accessories",
+      thumb:
+        "https://images.unsplash.com/photo-1576053139778-7e32f2ae3cfd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
+    },
+    {
+      gender: "women",
+      category: "Intimates",
+      thumb:
+        "https://images.unsplash.com/photo-1582366457363-930f4436009a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=469&q=80",
+    },
   ];
+
+  function viewAllClick() {
+    navigate(`/shop/${selected}/all`);
+  }
 
   return (
     <CategoriesContainer>
@@ -38,9 +74,11 @@ export default function CategoriesContent() {
         </MenButton>
       </NavBarCategories>
       <AllItemsButton>
-        <button>VIEW ALL ITEMS</button>
+        <button onClick={viewAllClick}>VIEW ALL ITEMS</button>
       </AllItemsButton>
-      <Categories list={selected === "women" ? womenCategories : menCategories} />
+      <Categories
+        list={selected === "women" ? womenCategories : menCategories}
+      />
     </CategoriesContainer>
   );
 }
@@ -85,6 +123,7 @@ const MenButton = styled.div`
 
 const NavBarCategories = styled.div`
   background-color: #ffffff;
+  z-index: 2;
   width: 100%;
   height: 42px;
   position: fixed;
