@@ -5,6 +5,8 @@ import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import BagPage from "./pages/BagPage";
 import ShopPage from "./pages/ShopPage";
+import LoginPage from "./pages/LoginPage";
+import SignUpPage from "./pages/SignUpPage";
 import React, { createContext, useEffect, useState } from "react";
 export const HeaderDataContext = createContext();
 
@@ -15,10 +17,14 @@ export default function App() {
 
   return (
     <PagesContainer>
-      <HeaderDataContext.Provider value={{ setHeaderButton , setHeaderTitle, setSelecionado }}>
+      <HeaderDataContext.Provider
+        value={{ setHeaderButton, setHeaderTitle, setSelecionado }}
+      >
         <BrowserRouter>
           <Header headerButton={headerButton} headerTitle={headerTitle} />
           <Routes>
+            <Route path="/" element={<LoginPage />} />
+            <Route path="/auth/sign-up" element={<SignUpPage />} />
             <Route path="/home" element={<HomePage />} />
             <Route path="/shop/*" element={<ShopPage />} />
             <Route path="/bag" element={<BagPage />} />
