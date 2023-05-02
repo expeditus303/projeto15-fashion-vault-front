@@ -32,7 +32,7 @@ export default function LoginContent() {
       password,
     };
     axios
-      .post("http://localhost:5000/auth/sign-in", body)
+      .post(`${process.env.REACT_APP_LINK_API}/auth/sign-in`, body)
       .then((res) => {
         setShowedMessage(false);
         const { token } = res.data;

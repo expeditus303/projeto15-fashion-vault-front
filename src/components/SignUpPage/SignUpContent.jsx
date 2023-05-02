@@ -41,6 +41,7 @@ export default function SignUpContent() {
     const { name, email, password, confirmPassword } = inputData;
     if (password !== confirmPassword) {
       setShowedMessage("Password and password confirmation must match.");
+      return;
     }
     const body = {
       name,
@@ -48,10 +49,10 @@ export default function SignUpContent() {
       password,
     };
     axios
-      .post("http://localhost:5000/auth/sign-up", body)
+      .post(`${process.env.REACT_APP_LINK_API}/auth/sign-up`, body)
       .then((res) => {
         setShowedMessage(false);
-        console.log(res.data)
+        console.log(res.data);
         navigate("/");
       })
       .catch((err) => {
