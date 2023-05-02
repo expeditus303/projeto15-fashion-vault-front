@@ -42,10 +42,11 @@ export default function ProductContent(props) {
     if (!selected) {
       return alert("Please, select size");
     }
-    const { token } = localStorage.getItem("token");
+    const token = localStorage.getItem("token");
+    console.log(token)
     const config = {
       headers: {
-        Authorizarion: `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
     };
     axios
