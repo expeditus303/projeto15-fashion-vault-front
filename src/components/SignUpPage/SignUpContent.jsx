@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
+import { ProgressBar } from "react-loader-spinner";
 
 export default function SignUpContent() {
   const [inputData, setInputData] = useState({
@@ -11,6 +12,7 @@ export default function SignUpContent() {
     confirmPassword: "",
   });
   const [showedMessage, setShowedMessage] = useState(false);
+  const [isLoading, setIsloading] = useState(false);
   const navigate = useNavigate();
 
   function handleChange(e) {
@@ -48,14 +50,17 @@ export default function SignUpContent() {
       email,
       password,
     };
+    setIsloading(true);
     axios
       .post(`${process.env.REACT_APP_LINK_API}/auth/sign-up`, body)
       .then((res) => {
         setShowedMessage(false);
+        setIsloading(false);
         console.log(res.data);
         navigate("/");
       })
       .catch((err) => {
+        setIsloading(false);
         setShowedMessage(err.response.data);
       });
   }
@@ -109,7 +114,9 @@ export default function SignUpContent() {
             />
           </div>
           <Link to="/">Already registered? Click here to log in.</Link>
-          <button type="submit">REGISTER</button>
+          <button type="submit">
+            {isLoading ? <ProgressBar borderColor="#ffffff" /> : "REGISTER"}
+          </button>
         </FormContainer>
       </form>
     </SignUpContainer>
@@ -201,6 +208,9 @@ const FormContainer = styled.div`
     color: #ffffff;
     background-color: #4d3837;
     border-radius: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 90%;
     height: 48px;
     border: none;
