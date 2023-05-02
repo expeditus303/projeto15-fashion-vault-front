@@ -30,10 +30,37 @@ function getCheckout(token){
     return promise
 }
 
+function createrOrder(token){
+    const config = createConfig(token)
+
+    const promise = axios.post(`${BASE_URL}/orders`, config)
+
+    return promise
+}
+
+function createAddress(token, body) {
+    const config = createConfig(token)
+
+    const promise = axios.post(`${BASE_URL}/checkout/address`, body, config)
+
+    return promise
+}
+
+function createPayment(token, body) {
+    const config = createConfig(token)
+
+    const promise = axios.post(`${BASE_URL}/checkout/payment`, body, config)
+
+    return promise
+}
+
 const api = {
     getBag,
     updateCart,
-    getCheckout
+    getCheckout,
+    createrOrder,
+    createAddress,
+    createPayment
 }
 
 export default api

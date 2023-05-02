@@ -46,7 +46,7 @@ export default function ProductContent(props) {
       },
     };
     axios
-      .post(`http://localhost:5000/cart/${selected}`, {}, config)
+      .post(`http://localhost:5000/cart/${selected}`, config)
       .then(() => {
         setOnCart(true);
       })

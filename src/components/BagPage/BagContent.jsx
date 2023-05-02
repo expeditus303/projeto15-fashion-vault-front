@@ -1,9 +1,36 @@
 import styled from "styled-components";
 import BagProducts from "./BagProducts";
+import { MagnifyingGlass } from "react-loader-spinner";
+import { useContext } from "react";
+import { HeaderDataContext } from "../../App";
 
 export default function BagContent(props) {
+  const {
+    bag,
+    setBag,
+    orderAmount,
+    showCheckout,
+    setShowCheckout,
+    refresh,
+    setRefresh,
+  } = props;
 
-    const { bag, setBag, totalAmount, showCheckout, setShowCheckout, refresh, setRefresh } = props
+  const {setShowFooter} = useContext(HeaderDataContext);
+
+
+  function openCheckout(){
+    setRefresh(!refresh)
+    setShowCheckout(true)
+    setShowFooter(false)
+  }
+
+  if (bag === undefined) {
+    return (
+      <Loading>
+        <MagnifyingGlass width={110} height={110} color="#4d3837" />
+      </Loading>
+    );
+  }
 
   return (
     <BagContentContainer showCheckout={showCheckout}>
@@ -29,17 +56,17 @@ export default function BagContent(props) {
       <CheckoutContainer>
         <div>
           <p>Total amount:</p>
-          <h3>${totalAmount}</h3>
+          <h3>${orderAmount}</h3>
         </div>
-        <button onClick={() => setShowCheckout(true)}>CHECK OUT</button>
+        <button onClick={openCheckout}>CHECK OUT</button>
       </CheckoutContainer>
     </BagContentContainer>
   );
 }
 
 const BagContentContainer = styled.div`
-display: ${(props) => (props.showCheckout ? "none" : "block")};    
-`
+  display: ${(props) => (props.showCheckout ? "none" : "block")};
+`;
 
 const CheckoutContainer = styled.div`
   background-color: white;
@@ -89,3 +116,12 @@ const CheckoutContainer = styled.div`
   }
 `;
 
+const Loading = styled.div`
+  background-color: #f9f9f9;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 35vh;
+`;
