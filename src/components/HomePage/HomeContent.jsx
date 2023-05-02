@@ -5,7 +5,7 @@ export default function HomeContent() {
     <>
       <MainImage>
         <img src="assets/images/mainWomanHome.png" alt="" />
-        <h2>Woman's Coats</h2>
+        <h2>Made for you</h2>
       </MainImage>
       <BottomImages>
         <div>

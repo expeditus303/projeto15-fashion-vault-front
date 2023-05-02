@@ -8,6 +8,8 @@ import ShopPage from "./pages/ShopPage";
 import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";
 import React, { createContext, useEffect, useState } from "react";
+import FavoritesPage from "./pages/FavoritesPage";
+import ProfilePage from "./pages/ProfilePage";
 export const HeaderDataContext = createContext();
 
 export default function App() {
@@ -28,6 +30,8 @@ export default function App() {
             <Route path="/home" element={<HomePage />} />
             <Route path="/shop/*" element={<ShopPage />} />
             <Route path="/bag" element={<BagPage />} />
+            <Route path="/favorites" element={<FavoritesPage />} />
+            <Route path="/profile" element={<ProfilePage />}></Route>
           </Routes>
           <Footer selecionado={selecionado} />
         </BrowserRouter>

@@ -7,11 +7,12 @@ import { useNavigate } from "react-router-dom";
 export default function HomePage() {
   const { setSelecionado } = useContext(HeaderDataContext);
   const navigate = useNavigate();
-  
+
   useEffect(() => {
     setSelecionado("Home");
     const token = localStorage.getItem("token");
     if (!token) {
+      localStorage.removeItem("token");
       navigate("/");
     }
   }, []);
