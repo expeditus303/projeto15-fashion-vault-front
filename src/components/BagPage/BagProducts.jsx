@@ -28,6 +28,7 @@ export default function BagProducts(props) {
 
   async function updateQuantity(update) {
     let newQuantity = quantity;
+    const token = localStorage.getItem("token");
 
     try {
       if (update === "decrease") {
@@ -37,14 +38,14 @@ export default function BagProducts(props) {
 
         newQuantity--;
         setQuantity(newQuantity);
-        const { data } = await api.updateCart("token", productId, update);
+        const { data } = await api.updateCart(token, productId, update);
         setBag(data);
         setRefresh(!refresh)
 
       } else if (update === "increase") {
         newQuantity++;
         setQuantity(newQuantity);
-        const { data } = await api.updateCart("token", productId, update);
+        const { data } = await api.updateCart(token, productId, update);
         setBag(data);
         setRefresh(!refresh)
       }

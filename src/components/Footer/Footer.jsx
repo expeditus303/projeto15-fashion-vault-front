@@ -14,7 +14,7 @@ import shoppingBagSelectedIcon from "../../assets/icons/shopping_bag-icon/activa
 import shoppingBagOutLineIcon from "../../assets/icons/shopping_bag-icon/inactiveicons.svg";
 
 export default function Footer(props) {
-  const { selecionado } = props;
+  const { selecionado, showFooter } = props;
   const icons = [
     {
       name: "Home",
@@ -54,7 +54,7 @@ export default function Footer(props) {
   }
 
   return (
-    <FooterContainer>
+    <FooterContainer showFooter={showFooter}>
       {icons.map((iconData) => {
         return (
           <NavIcon
@@ -70,10 +70,10 @@ export default function Footer(props) {
 }
 
 const FooterContainer = styled.div`
+  display: ${({showFooter}) => (showFooter ? "flex" : "none") };
   z-index: 2;
   padding-left: 20px;
   padding-right: 20px;
-  display: flex;
   align-items: center;
   justify-content: space-between;
   background-color: #ffffff;

@@ -16,11 +16,12 @@ export default function App() {
   const [headerTitle, setHeaderTitle] = useState("");
   const [headerButton, setHeaderButton] = useState(true);
   const [selecionado, setSelecionado] = useState();
+  const [showFooter, setShowFooter] = useState(true)
 
   return (
     <PagesContainer>
       <HeaderDataContext.Provider
-        value={{ setHeaderButton, setHeaderTitle, setSelecionado }}
+        value={{ setHeaderButton, setHeaderTitle, setSelecionado, setShowFooter }}
       >
         <BrowserRouter>
           <Header headerButton={headerButton} headerTitle={headerTitle} />
@@ -33,7 +34,7 @@ export default function App() {
             <Route path="/favorites" element={<FavoritesPage />} />
             <Route path="/profile" element={<ProfilePage />}></Route>
           </Routes>
-          <Footer selecionado={selecionado} />
+          <Footer selecionado={selecionado} showFooter={showFooter}/>
         </BrowserRouter>
       </HeaderDataContext.Provider>
     </PagesContainer>
