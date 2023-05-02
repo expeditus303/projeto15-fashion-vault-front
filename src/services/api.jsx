@@ -17,7 +17,7 @@ function getBag(token) {
 function updateCart(token, productId, update) {
     const config = createConfig(token)
 
-    const promise = axios.post(`${BASE_URL}/cart/${productId}?updateCart=${update}`, config)
+    const promise = axios.post(`${BASE_URL}/cart/${productId}?updateCart=${update}`,{}, config)
 
     return promise
 }
@@ -33,7 +33,7 @@ function getCheckout(token){
 function createrOrder(token){
     const config = createConfig(token)
 
-    const promise = axios.post(`${BASE_URL}/orders`, config)
+    const promise = axios.post(`${BASE_URL}/orders`,{},config)
 
     return promise
 }
