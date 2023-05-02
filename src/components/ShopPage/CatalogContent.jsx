@@ -30,7 +30,7 @@ export default function CatalogContent(params) {
 
     axios
       .get(
-        `http://localhost:5000/product/catalog/${gender}/${category}`,
+        `${process.env.REACT_APP_LINK_API}/product/catalog/${gender}/${category}`,
         config
       )
       .then((res) => {

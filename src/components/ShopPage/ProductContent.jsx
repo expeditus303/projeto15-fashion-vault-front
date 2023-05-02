@@ -26,7 +26,7 @@ export default function ProductContent(props) {
     };
 
     axios
-      .get(`http://localhost:5000/product/details/${id}`, config)
+      .get(`${process.env.REACT_APP_LINK_API}/product/details/${id}`, config)
       .then((res) => {
         const productInfo = res.data;
         setHeaderTitle(productInfo.title);
@@ -39,6 +39,9 @@ export default function ProductContent(props) {
   }, []);
 
   function addToCart() {
+    if (!selected) {
+      return alert("Please, select size");
+    }
     const { token } = localStorage.getItem("token");
     const config = {
       headers: {
@@ -46,7 +49,7 @@ export default function ProductContent(props) {
       },
     };
     axios
-      .post(`http://localhost:5000/cart/${selected}`, {}, config)
+      .post(`${process.env.REACT_APP_LINK_API}/cart/${selected}`, {}, config)
       .then(() => {
         setOnCart(true);
       })
@@ -79,18 +82,27 @@ export default function ProductContent(props) {
       </ProductImages>
       <SizeSelection>
         <div>
-          <select onChange={selectSize}>
-            <option value="" defaultValue="">
-              Sizes
-            </option>
-            {product.skus.map((sku) => {
-              return (
-                <option key={sku._id} value={sku.size}>
-                  {sku.size}
+          {product.skus.some((sku) => sku.stock > 0) ? (
+            <select onChange={selectSize}>
+              {!selected && (
+                <option value="" defaultValue="">
+                  Sizes
                 </option>
-              );
-            })}
-          </select>
+              )}
+
+              {product.skus.map((sku) => {
+                if (sku.stock > 0) {
+                  return (
+                    <option key={sku._id} value={sku.size}>
+                      {sku.size}
+                    </option>
+                  );
+                }
+              })}
+            </select>
+          ) : (
+            <p>"ESGOTADO"</p>
+          )}
         </div>
         <img src={favoriteIcon} alt="" />
       </SizeSelection>
@@ -215,6 +227,10 @@ const SizeSelection = styled.div`
   width: 100%;
   img {
     width: 40px;
+  }
+  > div p {
+    color: red;
+    font-size: 16px;
   }
   div:first-child select {
     border: 0.4px solid #9b9b9b;
